@@ -10,6 +10,7 @@ import { User } from './entities/user.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { RegisterUserDto } from './dto/register.dto';
 import { RedisService } from '@/redis/redis.service';
+import { md5 } from '@/utils';
 
 @Injectable()
 export class UserService {
@@ -41,7 +42,7 @@ export class UserService {
 
     const newUser = new User();
     newUser.username = user.username;
-    newUser.password = user.password;
+    newUser.password = md5(user.password);
     newUser.email = user.email;
     newUser.nickName = user.nickName;
     console.log('newUser aaaaddd');
