@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, Inject } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { Transporter, createTransport } from 'nodemailer';
 
@@ -6,7 +6,10 @@ import { Transporter, createTransport } from 'nodemailer';
 export class EmailService {
   transporter: Transporter;
 
-  constructor(private readonly configService: ConfigService) {
+  constructor(
+    @Inject(ConfigService)
+    private configService: ConfigService,
+  ) {
     this.transporter = createTransport({
       host: 'smtp.exmail.qq.com',
       port: 465,
